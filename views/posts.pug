@@ -1,0 +1,57 @@
+doctype html
+html
+  head
+    title= title
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="stylesheets/styles.css" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <div class="wrapper">
+    <div class="topbar" id="topbar">
+      <h2 id="header1"> Twitter </h2>
+    </div>
+    <div class="row">
+      <div class="col s4">
+        h4 Submit New Post
+          form(method='POST' action='/posts/create')
+              div.form-group
+                label(for='name') Name:
+                input#name.form-control(type='text', placeholder='Your name' name='author')
+              div.form-group
+                label(for='content') Post text:
+                input#content.form-control(type='text' name='content')
+              button.btn.btn-primary(type='submit') Submit new post
+        
+      
+      </div>
+      <div class="col s4">
+
+
+        ul
+          each post in post_list
+            li #{post.name}: #{post.post}
+              each comment in comment_list
+                if comment.originalposttid === post._id
+                  li #{comment.name}: #{comment.post}
+
+            form(method='POST' action='/posts/comment/'+post._id)
+              div.form-group
+                label(for='name') Name:
+                input#name.form-control(type='text', placeholder='Your name' name='author')
+              div.form-group
+                label(for='content') Post text:
+                input#content.form-control(type='text' name='content')
+              button.btn.btn-primary(type='submit') Submit comment
+
+          else
+            li There are no posts yet.
+
+      
+      
+      
+      </div>
+      <div class="col s4"> COL 1</div>
+    </div>
+  </div>
+  

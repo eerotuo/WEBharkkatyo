@@ -1,2 +1,0 @@
-# WEBharkkatyo
-Created with CodeSandbox
