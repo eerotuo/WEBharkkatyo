@@ -1,0 +1,45 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: aqua;
+}
+
+.topbar {
+  text-align: center;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(18, 26, 97);
+}
+
+.row {
+  align-self: center;
+  margin: 5px 0px 5px 0px;
+}
+
+.col {
+}
+
+#posts {
+  padding: 20px;
+  background-color: red;
+}
+
+#owncontent {
+  background-color: red;
+}
+
+#Author {
+  text-align: left;
+  color: rebeccapurple;
+}
+#Originalpost {
+  align-content: left;
+  color: rebeccapurple;
+}
+
+.btn.btn-primary {
+  align-self: center;
+  color: red;
+  background-color: blue;
+}

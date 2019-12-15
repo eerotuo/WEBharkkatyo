@@ -3,55 +3,100 @@ html
   head
     title= title
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="stylesheets/styles.css" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    style
+      include ../stylesheet/styles.css
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  <div class="wrapper">
+  <div class="container">
     <div class="topbar" id="topbar">
       <h2 id="header1"> Twitter </h2>
     </div>
+
+
+    //- Rov for own posts
     <div class="row">
-      <div class="col s4">
-        h4 Submit New Post
-          form(method='POST' action='/posts/create')
-              div.form-group
-                label(for='name') Name:
-                input#name.form-control(type='text', placeholder='Your name' name='author')
-              div.form-group
-                label(for='content') Post text:
-                input#content.form-control(type='text' name='content')
-              button.btn.btn-primary(type='submit') Submit new post
-        
-      
-      </div>
-      <div class="col s4">
+      <form class="col s12" method='POST' action='/posts/create'>
+        <div  id='owncontent' class="row">
+          
+          <div class="input-field col s10"> 
+            <input id="content" type="tel" class="validate" name='content'>
+            <label for="content">What do you want to say?</label>
+          </div>
+          <div class="input-field col s2">
+            button.btn.btn-primary(type='submit') Post
+          </div>
+        </div>
+      </form>
+    </div>
 
 
-        ul
-          each post in post_list
-            li #{post.name}: #{post.post}
-              each comment in comment_list
-                if comment.originalposttid === post._id
-                  li #{comment.name}: #{comment.post}
+    <div class="row">     
+      <div class="col s8 flow-text">
+        <div id='posts'>
+          each post in post_list.reverse()
+            each follow in follow_list
+              - if (personLogged === post.name || (post.name === follow.following && personLogged === follow.follower))
+                h5#Author Posted by: #{post.name} 
+                <par class="flow-text" > #{post.post} </par>
+              
+                each comment in comment_list
+                  if post.Strinid == comment.originalposttid
+                    div
+                      <par class="flow-text" > #{comment.name}: #{comment.post}  </par>
+                else
+                  li No comments yet
 
-            form(method='POST' action='/posts/comment/'+post._id)
-              div.form-group
-                label(for='name') Name:
-                input#name.form-control(type='text', placeholder='Your name' name='author')
-              div.form-group
-                label(for='content') Post text:
-                input#content.form-control(type='text' name='content')
-              button.btn.btn-primary(type='submit') Submit comment
-
+                form(method='POST' action='/posts/comment/'+post.Strinid)
+                  div.form-group
+                    label(for='content') Post text:
+                    input#content.form-control(type='text' name='content')
+                  button.btn.btn-primary(type='submit') Submit comment
+            else
+              li Follow someone to read their messages
           else
             li There are no posts yet.
-
-      
-      
-      
-      </div>
-      <div class="col s4"> COL 1</div>
+        </div>
     </div>
+
+    <div class="col s4" id='posts'>
+      h6 Follow new people:
+
+      form(method='POST' action='/posts/follow')
+            div.form-group
+              label(for='name') Name:
+              input#name.form-control(type='text', placeholder='Find user' name='following')
+            button.btn.btn-primary(type='submit') Follow
+      
+      h6 You are following:
+
+      <div id='following'>
+
+        each follow in follow_list
+
+          - if(follow.follower === personLogged)
+            <div class="center" id='following'>
+              <par> #{follow.following} </par>
+            </div>
+
+            form(method='POST' class='form-group' action='/posts/unfollow/'+follow._id)
+                <div class="input-field center">
+                  <button class="btn" action='/posts/unfollow'>Submit</button>
+                </div>
+            </form>
+
+        else
+          li You are not following anyone yet.
+
+      </div>
+
+    </div>
+
+
+
+    </div>
+        
   </div>
+
   

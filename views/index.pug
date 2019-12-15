@@ -1,14 +1,80 @@
 doctype html
 html
   head
-    title= title
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="stylesheets/styles.css" rel="stylesheet">
+    style
+      include ../stylesheet/styles.css
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  h1= title
-  p Welcome to #{title}
 
 
 
+
+  <div class="container">
+    <div class="topbar" id="topbar">
+      <h2 id="header1"> Twitter </h2>
+    </div>
+    
+
+
+    <div class="row">
+      <form class="col s12" method='POST' action='/posts/login'>
+
+        <div class="row">
+         p #{pagemessage}
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            <input id="user" type="text"  name='user'>
+            <label for="text">username</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            <input id="password" type="password" class="validate" name='password'>
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            button.btn.btn-primary(type='submit' action) Login
+          </div>
+        </div>
+
+      </form>   
+    </div>
+
+    <div class="row">
+      <form class="col s12" method='POST' action='posts/lognew'>
+        
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            <input id="user" type="text" class="validate" name='user'>
+            <label for="text">Email</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            <input id="password" type="password" class="validate" name='password'>
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s6 offset-s3">
+            button.btn.btn-primary(type='submit' action) Sign in
+          </div>
+        </div>
+
+      </form>    
+    </div>
+
+  </div>
+</div>
+   
