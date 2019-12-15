@@ -168,6 +168,11 @@ router.post(
   }
 );
 
+router.post("/logout", function(req, res, next) {
+  personLogged = "";
+  res.render("index", { pagemessage: "Failed login. Please ty again." });
+});
+
 router.post("/login", function(req, res, next) {
   const userr = req.body.user;
   const paswrt = req.body.password;
