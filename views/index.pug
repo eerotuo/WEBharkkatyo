@@ -14,7 +14,7 @@ html
 
   <div class="container">
     <div class="topbar" id="topbar">
-      <h2 id="header1"> Twitter </h2>
+      <h2 id="header1"> SuperChat </h2>
     </div>
     
 
@@ -22,14 +22,14 @@ html
     <div class="row">
       <form class="col s12" method='POST' action='/posts/login'>
 
-        <div class="row">
+        <div class="row center">
          p #{pagemessage}
         </div>
         
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <input id="user" type="text"  name='user'>
-            <label for="text">username</label>
+            <label for="text">Username</label>
           </div>
         </div>
         
@@ -51,24 +51,28 @@ html
 
     <div class="row">
       <form class="col s12" method='POST' action='posts/lognew'>
+
+        <div class="row center">
+         p Create new account
+        </div>
         
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <input id="user" type="text" class="validate" name='user'>
-            <label for="text">Email</label>
+            <label for="text">Create username</label>
           </div>
         </div>
         
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <input id="password" type="password" class="validate" name='password'>
-            <label for="password">Password</label>
+            <label for="password">Create password</label>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s6 offset-s3">
-            button.btn.btn-primary(type='submit' action) Sign in
+            button.btn.btn-primary(type='submit' action='posts/lognew') Sign in
           </div>
         </div>
 

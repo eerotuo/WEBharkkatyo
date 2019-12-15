@@ -22,24 +22,27 @@
 
 #posts {
   padding: 20px;
-  background-color: red;
+  background-color: lightblue;
 }
 
 #owncontent {
-  background-color: red;
+  background-color: lightblue;
 }
 
 #Author {
   text-align: left;
-  color: rebeccapurple;
-}
-#Originalpost {
-  align-content: left;
-  color: rebeccapurple;
+  color: rgb(27, 35, 104);
 }
 
 .btn.btn-primary {
   align-self: center;
-  color: red;
-  background-color: blue;
+  color: white;
+  background-color: rgb(18, 26, 97);
+}
+
+.btn {
+  size: medium;
+  align-self: center;
+  color: white;
+  background-color: rgb(18, 26, 97);
 }

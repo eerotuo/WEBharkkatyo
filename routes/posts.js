@@ -24,7 +24,7 @@ router.get("/", function(req, res, next) {
         if (err) throw err;
         console.log(personLogged);
         res.render("posts", {
-          title: "Post List",
+          title: "SuperChat",
           post_list: posts,
           comment_list: comments,
           follow_list: follower,
@@ -68,63 +68,6 @@ router.post(
       });
   }
 );
-
-router.post(
-  "/lognew",
-  sanitizeBody("*")
-    .trim()
-    .escape(),
-  function(req, res, next) {
-    //const tempid = new mongoose.Types.ObjectId();
-    //const strinid = tempid.toString();
-    const log = new Logindata({
-      _id: new mongoose.Types.ObjectId(),
-      username: req.body.user,
-      password: req.body.password
-    });
-    log
-      .save()
-      .then(result => {
-        console.log(result);
-        res.render("index", { pagemessage: "Käyttäjä lisätty onnistuneesti" });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
-  }
-);
-
-router.post("/login", function(req, res, next) {
-  const userr = req.body.user;
-  const paswrt = req.body.password;
-  var allow = false;
-  var i = 0;
-  Logindata.find({}, function(err, login) {
-    console.log(login);
-    if (err) throw err;
-    for (var i = 0; i < login.length; i++) {
-      if (userr === login[i].username && paswrt === login[i].password) {
-        personLogged = userr;
-        console.log(personLogged);
-        allow = true;
-        console.log("täsmää");
-      } else {
-        console.log("ei täsmää");
-        //res.render("index", { pagemessage: "Väärä tunnus" });
-      }
-    }
-
-    if (allow) {
-      console.log("ohjaus");
-      res.redirect("/posts");
-    }
-  });
-
-  //Above is example of ES6 function def; it is functionally similar to the then function
-});
 
 router.post(
   "/comment/:id",
@@ -192,6 +135,67 @@ router.post("/unfollow/:id", function(req, res) {
     res.redirect("/posts");
     return res.status(200).send();
   });
+});
+
+///////////////////////////////////////////////////
+//Function to handle login and creation of new user
+
+router.post(
+  "/lognew",
+  sanitizeBody("*")
+    .trim()
+    .escape(),
+  function(req, res, next) {
+    //const tempid = new mongoose.Types.ObjectId();
+    //const strinid = tempid.toString();
+    const log = new Logindata({
+      _id: new mongoose.Types.ObjectId(),
+      username: req.body.user,
+      password: req.body.password
+    });
+    log
+      .save()
+      .then(result => {
+        console.log(result);
+        res.render("index", { pagemessage: "Käyttäjä lisätty onnistuneesti" });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  }
+);
+
+router.post("/login", function(req, res, next) {
+  const userr = req.body.user;
+  const paswrt = req.body.password;
+  var allow = false;
+  var i = 0;
+  Logindata.find({}, function(err, login) {
+    console.log(login);
+    if (err) throw err;
+    for (var i = 0; i < login.length; i++) {
+      if (userr === login[i].username && paswrt === login[i].password) {
+        personLogged = userr;
+        console.log(personLogged);
+        allow = true;
+        console.log("täsmää");
+      } else {
+        console.log("ei täsmää");
+        //res.render("index", { pagemessage: "Väärä tunnus" });
+      }
+    }
+
+    if (allow) {
+      res.redirect("/posts");
+    } else {
+      res.render("index", { pagemessage: "Failed login. Please ty again." });
+    }
+  });
+
+  //Above is example of ES6 function def; it is functionally similar to the then function
 });
 
 module.exports = router;

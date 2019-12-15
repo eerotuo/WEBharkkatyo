@@ -11,7 +11,7 @@ html
 
   <div class="container">
     <div class="topbar" id="topbar">
-      <h2 id="header1"> Twitter </h2>
+      <h2 id="header1"> SuperChat </h2>
     </div>
 
 
@@ -36,11 +36,32 @@ html
       <div class="col s8 flow-text">
         <div id='posts'>
           each post in post_list.reverse()
-            each follow in follow_list
-              - if (personLogged === post.name || (post.name === follow.following && personLogged === follow.follower))
-                h5#Author Posted by: #{post.name} 
-                <par class="flow-text" > #{post.post} </par>
+            - if (personLogged === post.name)
+              h5#Author Posted by: #{post.name} 
+              div
+                <par class="flow-text" >Message: #{post.post} </par>
+              br
               
+              each comment in comment_list
+                if post.Strinid == comment.originalposttid
+                  div
+                    <par class="flow-text" > #{comment.name}: #{comment.post}  </par>
+              else
+                li No comments yet
+
+              form(method='POST' action='/posts/comment/'+post.Strinid)
+                div.form-group
+                  label(for='content') Post text:
+                  input#content.form-control(type='text' name='content')
+                button.btn.btn-primary(type='submit') Submit comment
+
+
+            each follow in follow_list
+              - if (post.name === follow.following && personLogged === follow.follower)
+                h5#Author Posted by: #{post.name}
+                div
+                  <par class="flow-text" >Message: #{post.post} </par>
+                br
                 each comment in comment_list
                   if post.Strinid == comment.originalposttid
                     div
@@ -67,8 +88,11 @@ html
             div.form-group
               label(for='name') Name:
               input#name.form-control(type='text', placeholder='Find user' name='following')
-            button.btn.btn-primary(type='submit') Follow
+            <div class="input-field center">
+              button.btn.btn-primary(type='submit') Follow
+            </div>
       
+      hr
       h6 You are following:
 
       <div id='following'>
@@ -82,7 +106,7 @@ html
 
             form(method='POST' class='form-group' action='/posts/unfollow/'+follow._id)
                 <div class="input-field center">
-                  <button class="btn" action='/posts/unfollow'>Submit</button>
+                  <button class="btn" action='/posts/unfollow'>Unfollow</button>
                 </div>
             </form>
 
