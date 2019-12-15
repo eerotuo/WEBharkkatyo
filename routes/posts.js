@@ -170,7 +170,7 @@ router.post(
 
 router.post("/logout", function(req, res, next) {
   personLogged = "";
-  res.render("index", { pagemessage: "Failed login. Please ty again." });
+  res.redirect("/");
 });
 
 router.post("/login", function(req, res, next) {
