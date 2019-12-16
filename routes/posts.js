@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 
-// Get the db instance
+// Get the db instances
 var Posts = require("../models/models");
 var Comments = require("../models/comments");
 var Logindata = require("../models/login");
@@ -75,7 +75,7 @@ router.post(
     .trim()
     .escape(),
   function(req, res, next) {
-    console.log("--------------------------" + req.params.id);
+    console.log(req.params.id);
     const comment = new Comments({
       _id: new mongoose.Types.ObjectId(),
       originalposttid: req.params.id,
@@ -139,6 +139,7 @@ router.post("/unfollow/:id", function(req, res) {
 
 ///////////////////////////////////////////////////
 //Function to handle login and creation of new user
+///////////////////////////////////////////////////
 
 router.post(
   "/lognew",
@@ -146,8 +147,6 @@ router.post(
     .trim()
     .escape(),
   function(req, res, next) {
-    //const tempid = new mongoose.Types.ObjectId();
-    //const strinid = tempid.toString();
     const log = new Logindata({
       _id: new mongoose.Types.ObjectId(),
       username: req.body.user,
@@ -189,7 +188,6 @@ router.post("/login", function(req, res, next) {
         console.log("täsmää");
       } else {
         console.log("ei täsmää");
-        //res.render("index", { pagemessage: "Väärä tunnus" });
       }
     }
 
@@ -199,8 +197,6 @@ router.post("/login", function(req, res, next) {
       res.render("index", { pagemessage: "Failed login. Please ty again." });
     }
   });
-
-  //Above is example of ES6 function def; it is functionally similar to the then function
 });
 
 module.exports = router;
